@@ -34,14 +34,6 @@ print("=" * 75)
 # Memeriksa duplikat data
 print("Jumlah baris duplikat dalam dataset:", data.duplicated().sum())
 
-# Penanganan Missing value (Menghapus baris yang mengandung nilai null)
-data.dropna(inplace=True)
-
-# Menampilkan data setelah menghapus missing value
-print("Data setelah menghapus missing value".center(75, "="))
-print(data.isnull().sum())
-print("=" * 75)
-
 # Menampilkan boxplot untuk setiap fitur dalam dataset sebelum menangani outlier
 plt.figure(figsize=(15, 10))
 data.boxplot(rot=45)
@@ -110,8 +102,10 @@ print(y)
 print("=" * 75)
 
 # Pembagian training dan testing
-print("Splitting Data 20-80".center(75, "="))
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+print("Splitting Data 43-57".center(75, "="))
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=260 / 460, random_state=0
+)
 print("Instance variable data training".center(75, "="))
 print(X_train)
 print("Instance kelas data training".center(75, "="))
