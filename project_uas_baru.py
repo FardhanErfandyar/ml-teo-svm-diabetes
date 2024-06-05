@@ -128,6 +128,43 @@ print(y_train_pred)
 print("=" * 75)
 print()
 
+# Memilih persentase tertentu dari data pelatihan yang diprediksi dengan buruk (misalnya, 10%)
+# Hitung kesalahan prediksi
+errors = y_train != y_train_pred
+
+# Jumlah total kesalahan prediksi
+num_errors = np.sum(errors)
+
+# Persentase data yang diprediksi buruk yang ingin kita pilih
+x = 10  # misalnya, kita ingin memilih 10% dari data yang diprediksi buruk
+num_selected = int(x / 100 * num_errors)
+
+# Memilih data yang diprediksi buruk
+if num_selected > 0:
+    selected_indices = np.random.choice(
+        np.where(errors)[0], num_selected, replace=False
+    )
+    selected_badly_predicted_data = X_train[selected_indices]
+    selected_badly_predicted_labels = y_train[selected_indices]
+
+    print("Data yang diprediksi buruk (x%):")
+    print(selected_badly_predicted_data)
+    print(selected_badly_predicted_labels)
+else:
+    print("Tidak ada data yang diprediksi buruk.")
+
+# Langkah-langkah untuk menganalisis dan memperbaiki model dapat dilakukan di sini
+
+# Sebagai contoh, kita bisa melihat distribusi fitur dari data yang diprediksi buruk
+plt.figure(figsize=(15, 10))
+sns.boxplot(
+    data=pd.DataFrame(
+        selected_badly_predicted_data, columns=data_normalized.columns[:-1]
+    )
+)
+plt.title("Boxplot dari Data yang Diprediksi Buruk")
+plt.show()
+
 # Prediksi SVM pada seluruh data training
 print("Prediksi SVM pada seluruh data training".center(75, "="))
 y_all_train_pred = svm_model.predict(X_train)
@@ -151,7 +188,8 @@ print("CLASSIFICATION REPORT SVM".center(75, "="))
 accuracy = accuracy_score(y_test, Y_pred)
 # Menghitung presisi
 precision = precision_score(y_test, Y_pred)
-# Menampilkan precision, recall, f1-score, dan support
+# Menampilkan precision, recall, f1
+
 print(classification_report(y_test, Y_pred))
 
 # Menghitung sensitivity (true positive rate)
