@@ -179,7 +179,7 @@ print(Y_pred)
 print("=" * 75)
 print()
 
-# Evaluasi
+# 6 Evaluasi
 # Menghitung confusion matrix
 cm = confusion_matrix(y_test, Y_pred)
 
