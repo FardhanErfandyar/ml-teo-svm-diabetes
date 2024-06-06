@@ -153,17 +153,6 @@ if num_selected > 0:
 else:
     print("Tidak ada data yang diprediksi buruk.")
 
-# Langkah-langkah untuk menganalisis dan memperbaiki model dapat dilakukan di sini
-
-# Sebagai contoh, kita bisa melihat distribusi fitur dari data yang diprediksi buruk
-plt.figure(figsize=(15, 10))
-sns.boxplot(
-    data=pd.DataFrame(
-        selected_badly_predicted_data, columns=data_normalized.columns[:-1]
-    )
-)
-plt.title("Boxplot dari Data yang Diprediksi Buruk")
-plt.show()
 
 # Prediksi SVM pada seluruh data training
 print("Prediksi SVM pada seluruh data training".center(75, "="))
