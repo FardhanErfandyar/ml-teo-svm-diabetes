@@ -89,7 +89,7 @@ print("Hasil Normalisasi Min-Max Scaling".center(75, "="))
 print(data_normalized.head())
 print("=" * 75)
 
-# 5. Klasifikasi
+# 4. Klasifikasi
 # Grouping yang dibagi menjadi dua
 print("Grouping Variable".center(75, "="))
 X = data_normalized.iloc[:, 0:-1].values
@@ -179,7 +179,7 @@ print(Y_pred)
 print("=" * 75)
 print()
 
-# 6 Evaluasi
+# 5 Evaluasi
 # Menghitung confusion matrix
 cm = confusion_matrix(y_test, Y_pred)
 
