@@ -128,6 +128,31 @@ print(y_train_pred)
 print("=" * 75)
 print()
 
+# Memilih persentase tertentu dari data pelatihan yang diprediksi dengan buruk (misalnya, 10%)
+# Hitung kesalahan prediksi
+errors = y_train != y_train_pred
+
+# Jumlah total kesalahan prediksi
+num_errors = np.sum(errors)
+
+# Persentase data yang diprediksi buruk yang ingin kita pilih
+x = 10  # misalnya, kita ingin memilih 10% dari data yang diprediksi buruk
+num_selected = int(x / 100 * num_errors)
+
+# Memilih data yang diprediksi buruk
+if num_selected > 0:
+    selected_indices = np.random.choice(
+        np.where(errors)[0], num_selected, replace=False
+    )
+    selected_badly_predicted_data = X_train[selected_indices]
+    selected_badly_predicted_labels = y_train[selected_indices]
+
+    print("Data yang diprediksi buruk (x%):")
+    print(selected_badly_predicted_data)
+    print(selected_badly_predicted_labels)
+else:
+    print("Tidak ada data yang diprediksi buruk.")
+
 
 # Prediksi SVM pada seluruh data training
 print("Prediksi SVM pada seluruh data training".center(75, "="))
@@ -142,6 +167,19 @@ Y_pred = svm_model.predict(X_test)
 print(Y_pred)
 print("=" * 75)
 print()
+
+from sklearn.model_selection import cross_val_score
+
+# Melakukan 10-fold cross-validation
+cross_val_scores = cross_val_score(svm_model, X_train, y_train, cv=10)
+
+# Menampilkan hasil cross-validation
+print("Hasil 10-fold Cross-Validation:")
+print(cross_val_scores)
+
+# Menampilkan rata-rata akurasi dari cross-validation
+print("Rata-rata Akurasi 10-fold Cross-Validation:", cross_val_scores.mean())
+
 
 # 5 Evaluasi
 # Menghitung confusion matrix
@@ -166,7 +204,7 @@ spec = TN / (TN + FP) * 100
 # Menghitung specificity (true negative rate)
 sens = TP / (TP + FN) * 100
 
-print("Accuracy : ", accuracy * 100, "%")
+print("Akurasi : ", accuracy * 100, "%")
 print("Sensitivity : " + str(sens))
 print("Specificity : " + str(spec))
 print("=" * 75)
